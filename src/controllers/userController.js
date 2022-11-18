@@ -3,6 +3,19 @@ import ScheduleModel from "../models/Schedule";
 
 class UserController {
 
+
+	async show(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await UserModel.findOne({where: {userId: id}});
+			res.send(user);
+		} catch (e) {
+			console.log(e)
+			res.send("error")
+
+		}
+	}
+
 	async store(req, res) {
 		try {
 			const getAllSchedules = await UserModel.findAll()

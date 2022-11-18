@@ -5,6 +5,7 @@ import carRoute from "./src/routes/carRoute";
 import dotenv from 'dotenv'
 import scheduleRoute from "./src/routes/scheduleRoute";
 import userRoute from "./src/routes/userRoute";
+import cors from "cors";
 
 dotenv.config();
 
@@ -21,7 +22,13 @@ dotenv.config();
 class App {
 	constructor() {
 		this.app = express()
+		this.middleware()
 		this.routes();
+	}
+
+
+	middleware() {
+		this.app.use(cors('*'))
 	}
 
 	routes() {
