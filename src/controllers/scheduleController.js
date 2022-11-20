@@ -8,7 +8,6 @@ class ScheduleController {
 			const schedules = await ScheduleModel.findAll();
 			res.send(schedules);
 		} catch (e) {
-			console.log(e)
 			res.send("error")
 		}
 

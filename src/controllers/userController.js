@@ -7,10 +7,9 @@ class UserController {
 	async show(req, res) {
 		try {
 			const {id} = req.params;
-			const user = await UserModel.findOne({where: {userId: id}});
+			const user = await UserModel.findAll({where: {userId: id}});
 			res.send(user);
 		} catch (e) {
-			console.log(e)
 			res.send("error")
 
 		}
@@ -25,7 +24,7 @@ class UserController {
 				const haveScheduleCar = haveSchedules.find(it => it.dataValues.carId === req.body.carId);
 
 				if (haveScheduleCar) {
-					return res.json("Don't is possible schedule same car")
+					return res.status(400).json("Don't is possible schedule same car")
 				} else {
 					await UserModel.create(req.body);
 					//TODO: - Fazer uma verificacao para limpar as datas selecionadas
