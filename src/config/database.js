@@ -9,6 +9,8 @@ module.exports = {
 	password: process.env.DATABASE_PASSWORD,
 	database: process.env.DATABASE,
 	logQueryParameters: true,
+	connectionLimit: 5,
+	allowPublicKeyRetrieval: true,
 	define: {
 		timestamp: false,
 	},
