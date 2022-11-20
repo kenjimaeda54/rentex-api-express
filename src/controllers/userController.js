@@ -1,5 +1,7 @@
 import UserModel from "../models/UserModel";
-import ScheduleModel from "../models/Schedule";
+import CarModel from "../models/CarModel";
+import {database} from "../config/database";
+
 
 class UserController {
 
@@ -7,8 +9,18 @@ class UserController {
 	async show(req, res) {
 		try {
 			const {id} = req.params;
+			let collection = [];
 			const user = await UserModel.findAll({where: {userId: id}});
-			res.send(user);
+			const cars = await CarModel.findAll()
+			user.forEach(user => {
+				const car = cars.filter(car => car.dataValues.id === user.dataValues.carId);
+				const newValue = {
+					user: user,
+					cars: [...car],
+				}
+				collection.push(newValue)
+			})
+			res.send(collection);
 		} catch (e) {
 			res.send("error")
 
